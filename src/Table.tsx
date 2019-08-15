@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 import { faSortUp } from '@fortawesome/free-solid-svg-icons'
@@ -44,13 +45,18 @@ return(
     <tbody>
       {Object.values(props.shipments).map((shipment: any, i) => {
         if(i < 20)
-        return(
+        return (
           <tr key={i}>
-          <td>{shipment.id}</td>
-          <td>{shipment.mode}</td>
-          <td>{shipment.name}</td>
-          <td>{shipment.status}</td>
-          <td>{shipment.total}</td>
+            <td>{shipment.id}</td>
+            <td>{shipment.mode}</td>
+            <td>{shipment.name}</td>
+            <td>{shipment.status}</td>
+            <td>{shipment.total}</td>
+            <td>
+              <NavLink exact={true} to={`/shipment/${shipment.id}`} >
+                View
+              </NavLink>
+            </td>
         </tr>
           )
         })}

@@ -3,7 +3,7 @@ import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch, RouteComponentProps } from "react-router-dom";
 import Landing from "./Landing";
-import Shipment from "./Shipment";
+import SingleShipment from "./SingleShipment";
 import { freightHubTheme } from "./styledComponents/Theme";
 const history = createBrowserHistory();
 
@@ -38,7 +38,7 @@ const App: React.FC<any> = (props: RouteComponentProps) => {
       <Router history={history}>
         <Switch>
             <Route exact path="/" render={() => <Landing {...props}/>} />
-          <Route exact path="/shipment" render={props => <Shipment {...props} />} />
+            <Route exact path="/shipment/:id" render={props => <SingleShipment {...props} />} />
         </Switch>
       </Router>
       </AppContainer>
