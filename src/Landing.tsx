@@ -7,8 +7,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Table from "./Table"
 import * as H from "history";
 import { url } from "./url";
-import Shipment from "./Shipment";
-
 
 interface Props extends RouteComponentProps {
   history: H.History
