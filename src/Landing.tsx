@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import { Container } from './styledComponents/Elements'
+import { Container, SearchInput, SearchButton } from './styledComponents/Elements'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Table from "./Table"
 import * as H from "history";
 import { url } from "./url";
-import Shipment from "./Shipment";
-
 
 interface Props extends RouteComponentProps {
   history: H.History
@@ -43,6 +43,11 @@ const GlobalStyle = createGlobalStyle`
 const Landing: React.FC<Props> = (props: Props) => {
   const [data, setData] = useState<any>({});
 
+  const handleSort = (e: any) => {
+    console.log(data.sort((a: any, b: any) => b.id - a.id))
+    data.sort((a: any, b: any) => b.id - a.id)
+  }
+
   const useFetch = (url: any) => {
     useEffect(() => {
       let mounted = true;
@@ -67,8 +72,10 @@ const Landing: React.FC<Props> = (props: Props) => {
   return (
     <> 
       <Container>
+        <SearchInput type="search"/>
+        <SearchButton><FontAwesomeIcon icon={faSearch}/></SearchButton>
       <GlobalStyle/>
-      <Table shipments={data}/>
+      <Table shipments={data} handleSort={handleSort} />
       </Container>
     </>
   );
