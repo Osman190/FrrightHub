@@ -1,27 +1,48 @@
-import React, { useState, useReducer, useEffect, useContext } from "react";
+import React from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch, RouteComponentProps } from "react-router-dom";
+import Landing from "./Landing";
+import Shipment from "./Shipment";
+import { freightHubTheme } from "./styledComponents/Theme";
 const history = createBrowserHistory();
 
-const App: React.FC = () => {
+const AppContainer = styled.div`
+  height: 100%;
+  display: flex;
+  transition: opacity 0.5s ease;
+  flex-flow: column;
+  opacity: 1
+`;
+
+const GlobalStyle: any = createGlobalStyle`
+  *, ::after, ::before {
+    box-sizing: border-box;
+  }
+  svg {
+    box-sizing: content-box;
+  }
+  html, body, #root {
+    height: 100%;
+  }
+  a {
+    color: ${freightHubTheme.colors.main};
+  }
+`;
+
+const App: React.FC<any> = (props: RouteComponentProps) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={freightHubTheme}>
+      <AppContainer>
+      <GlobalStyle />
+      <Router history={history}>
+        <Switch>
+            <Route exact path="/" render={() => <Landing {...props}/>} />
+          <Route exact path="/shipment" render={props => <Shipment {...props} />} />
+        </Switch>
+      </Router>
+      </AppContainer>
+    </ThemeProvider>
   );
 }
 
