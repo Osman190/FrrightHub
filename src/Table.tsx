@@ -2,29 +2,40 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 import { faSortUp } from '@fortawesome/free-solid-svg-icons'
+import { WarpSort } from './styledComponents/Elements'
 
 
 interface TableProps {
  shipments: Object
+ handleSort: Function
 }
 
+
 const Table: React.FC<any> = (props: TableProps) => {
-console.log(props)
+console.log(props);
 return(
   <>
   <table>
     <thead>
       <tr>
         <th>
-          Id  
-          <FontAwesomeIcon icon={faSortUp} />
-          <FontAwesomeIcon icon={faSortDown} />
+          Id 
+          <WarpSort onClick={(e) => props.handleSort()}>
+            <FontAwesomeIcon icon={faSortUp}  />
+            </WarpSort> 
+          <WarpSort onClick={(e) => props.handleSort()}>
+            <FontAwesomeIcon icon={faSortDown} />
+            </WarpSort> 
         </th>
       <th>Mode</th>
         <th>
           Name
-          <FontAwesomeIcon icon={faSortUp} />
-          <FontAwesomeIcon icon={faSortDown} />
+          <WarpSort>
+            <FontAwesomeIcon icon={faSortUp} />
+          </WarpSort>
+          <WarpSort>
+            <FontAwesomeIcon icon={faSortDown} />
+          </WarpSort>
           </th>
       <th>Status</th>
       <th>Total</th>
