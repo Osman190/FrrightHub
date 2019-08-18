@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
 import { faSortUp } from '@fortawesome/free-solid-svg-icons'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { WarpSort } from './styledComponents/Elements'
 
 
@@ -13,7 +15,6 @@ interface TableProps {
 
 
 const Table: React.FC<any> = (props: TableProps) => {
-console.log(props);
 return(
   <>
   <table>
@@ -21,10 +22,10 @@ return(
       <tr>
         <th>
           Id 
-          <WarpSort onClick={(e) => props.handleSort()}>
+          <WarpSort onClick={(e) => props.handleSort("id")}>
             <FontAwesomeIcon icon={faSortUp}  />
             </WarpSort> 
-          <WarpSort onClick={(e) => props.handleSort()}>
+            <WarpSort onClick={(e) => props.handleSort("id")}>
             <FontAwesomeIcon icon={faSortDown} />
             </WarpSort> 
         </th>
@@ -40,6 +41,7 @@ return(
           </th>
       <th>Status</th>
       <th>Total</th>
+      <th>Details</th>
       </tr>
     </thead>
     <tbody>
@@ -54,8 +56,11 @@ return(
             <td>{shipment.total}</td>
             <td>
               <NavLink exact={true} to={`/shipment/${shipment.id}`} >
-                View
+                <FontAwesomeIcon icon={faArrowRight} />
               </NavLink>
+              {" "}
+              <FontAwesomeIcon icon={faInfoCircle} />
+        
             </td>
         </tr>
           )
