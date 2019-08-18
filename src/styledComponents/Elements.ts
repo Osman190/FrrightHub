@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { freightHubTheme } from "./Theme";
 
 export const Container = styled.div`
   display: flex;
