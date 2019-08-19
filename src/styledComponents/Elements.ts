@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { createGlobalStyle } from "styled-components";
+
 
 export const Container = styled.div`
   display: flex;
@@ -23,3 +25,39 @@ export const WarpSort = styled.span`
   height: 10px;
 	width: 12px;
 `
+
+export const GlobalStyle = createGlobalStyle`
+  table {
+  width: 80%;
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin:80px auto;
+  }
+  thead {
+    
+  }
+  th,
+  td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th,
+  td,
+  tr {
+    padding: 10px;
+    
+  }
+  th {
+    text-align: left;
+  }
+  tr:nth-of-type(even) { 
+	background: #eee; 
+  }
+  td:last-child {
+      padding-left: 3%;
+      width: 8%;
+  }
+  td:last-child :hover{
+    padding-left: 4% 
+  }
+`;

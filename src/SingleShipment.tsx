@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 
-interface Props {
+interface shipmentProps {
  match: {
   params: {
     id: String
@@ -15,7 +15,7 @@ interface Props {
 }
 
 
-const SingleShipment: React.FC<any> = (props: Props) => {
+const SingleShipment: React.FC<any> = (props: shipmentProps) => {
   const [data, setData] = useState<any>({});
   console.log(props);
   console.log(data);
