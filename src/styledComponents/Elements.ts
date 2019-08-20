@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 
+export const AppContainer = styled.div`
+  height: 100%;
+  display: flex;
+  transition: opacity 0.5s ease;
+  flex-flow: column;
+  opacity: 1
+`;
 
 export const Container = styled.div`
   display: flex;
