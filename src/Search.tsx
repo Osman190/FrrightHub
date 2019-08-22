@@ -26,7 +26,7 @@ const Search: React.FC<any> = (props: searchProps) => {
     handleSearch(searchValue);
     resetInputField();
   }
-console.log(state);
+
   // const callSearchFunction = (e: any, searchValue: any) => {
   //   const value = searchValue.current.value.toUpperCase()
   //   const result = Object.values(props.data).filter(element => {

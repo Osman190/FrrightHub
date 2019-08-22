@@ -34,9 +34,8 @@ const App: React.FC<any> = (props: RouteComponentProps) => {
         <Router history={history}>  
           <AppProvider>
             <Switch>
-            <Route path="/" render={props => <Landing {...props} />} />
-            {/* <Route exact path="/item" render={() => <Landing {...props}/>} /> */}
-            <Route exact path="/item/:id" render={props => <SingleShipment {...props} />} />
+              <Route exact path="/" render={props => <Landing {...props} />} />
+              <Route exact path="/shipment/:id" render={props => <SingleShipment {...props} />} />
           </Switch>
           </AppProvider>
         </Router>

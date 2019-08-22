@@ -22,6 +22,8 @@ export interface StateInterface {
     userId: string;
     reverse: Function;
     filter: Function;
+    map: Function;
+    sort: Function;
     }
 }
 export interface ReducerInterface {

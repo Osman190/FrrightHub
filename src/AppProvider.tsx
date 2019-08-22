@@ -8,7 +8,6 @@ export { AppContext };
 let count = 0
 const AppProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log('RENDER COUNT', count);
   count++
   return (
     <AppContext.Provider value={{ state, dispatch }}>

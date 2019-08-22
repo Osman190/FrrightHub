@@ -6,7 +6,8 @@ export const reducer = (state: any, action: any) => {
       return {...state, data: action.data }
     case "SEARCH_DATA":
       return { ...state, data: action.data }
-    
+    case "REST_DATA":
+      return { ...state, data: action.data }
     default:
       throw new Error("Unexpected action");
   }

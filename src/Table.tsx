@@ -10,7 +10,8 @@ import { WarpSort } from './styledComponents/Elements'
 
 interface TableProps {
  shipments: Object
- handleSortId: Function
+  handleSortId: Function
+  handleSortName: Function
 }
 
 
@@ -22,15 +23,14 @@ return(
       <tr>
         <th>
           Id 
-          <WarpSort onClick={(e) => props.handleSortId()}>
+          <WarpSort onClick={(e) => props.handleSortId(e)}>
             <FontAwesomeIcon icon={faSort}  />
             </WarpSort> 
-           
         </th>
       <th>Mode</th>
         <th>
           Name
-          <WarpSort onClick={(e) => props.handleSortId()}>
+          <WarpSort onClick={(e) => props.handleSortName(e)}>
             <FontAwesomeIcon icon={faSort} />
           </WarpSort>
           
@@ -42,24 +42,24 @@ return(
     </thead>
     <tbody>
         {Object.values(props.shipments).map((shipment: any, i) => {
-          return (
-            <tr key={i}>
-            <td>{shipment.id}</td>
-            <td>{shipment.mode}</td>
-            <td>{shipment.name}</td>
-            <td>{shipment.status}</td>
-            <td>{shipment.total}</td>
-            <td>
-              <NavLink exact={true} to={`/item/${shipment.id}`} >
-                <FontAwesomeIcon icon={faArrowRight} />
-              </NavLink>
-              {" "}
-              <FontAwesomeIcon icon={faInfoCircle} />
-            </td>
-        </tr>
-          )
-        
-        })}
+          if (i < 20) 
+            return (
+              <tr key={i}>
+                <td>{shipment.id}</td>
+                <td>{shipment.mode}</td>
+                <td>{shipment.name}</td>
+                <td>{shipment.status}</td>
+                <td>{shipment.total}</td>
+                <td>
+                  <NavLink exact={true} to={`/shipment/${shipment.id}`} >
+                    <FontAwesomeIcon icon={faArrowRight} />
+                  </NavLink>
+                  {" "}
+                  <FontAwesomeIcon icon={faInfoCircle} />
+                </td>
+            </tr>
+              )
+            })}
     </tbody>
   </table>
   </>
