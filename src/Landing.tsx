@@ -1,81 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
-import { Container, SearchInput, SearchButton } from './styledComponents/Elements'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { Container, GlobalStyle } from './styledComponents/Elements'
+import { AppContext } from "./AppProvider";
 import Table from "./Table"
+import Search from "./Search"
 import * as H from "history";
 import { url } from "./url";
 
 interface Props extends RouteComponentProps {
   history: H.History
+  
 }
 
-const GlobalStyle = createGlobalStyle`
-  table {
-  width: 80%;
-  border: 1px solid black;
-  border-collapse: collapse;
-  margin:80px auto;
-  }
-  thead {
-    
-  }
-  th,
-  td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-  th,
-  td,
-  tr {
-    padding: 7px;
-  }
-  th {
-    text-align: left;
-  }
-  tr:nth-of-type(even) { 
-	background: #eee; 
-	}
-`;
-
 const Landing: React.FC<Props> = (props: Props) => {
-  const [data, setData] = useState<any>({});
-
-  const handleSort = (e: any) => {
-    console.log(data.sort((a: any, b: any) => b.id - a.id))
-    data.sort((a: any, b: any) => b.id - a.id)
+  const { state, dispatch } = useContext(AppContext);
+  const [searchedData, setSearchedData] = useState<any>(state.data);
+  const [localData, setData] = useState<any>([]);
+  // const [sort, setSort] = useState<any>(true)
+  
+  const handleSortId = (e: any) => {
+    e.preventDefault()
+      dispatch({ type: "REST_DATA", data: localData })
+    let data = state.data.sort((a: any, b: any) => {
+      return Number(a.id.replace(/\D/g, '')) - Number(b.id.replace(/\D/g, '')) ? -1
+            : Number(b.id.replace(/\D/g, '')) - Number(a.id.replace(/\D/g, '')) ? 1
+            : 0;
+    });
+      dispatch({ type: "REVERSED_DATA", data: data })
   }
 
-  const useFetch = (url: any) => {
-    useEffect(() => {
-      let mounted = true;
-      const abortController = new AbortController();
-      (async () => {
-        const res = await fetch(url, {
-          signal: abortController.signal,
-        });
-        const data = await res.json();
-        if (mounted) setData(data);
-      })();
-      const cleanup = () => {
-        mounted = !mounted;
-        abortController.abort();
-      };
-      return cleanup;
-    }, [url]);
-    return data;
-  };
-  useFetch(url)
+  const handleSortName = (e: any) => {
+    e.preventDefault()
+    let data = state.data.sort((a: any, b: any) => {
+      return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;
+    });
+    dispatch({ type: "REVERSED_DATA", data:  data  })
+  }
   
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(url, { method: "GET" });
+      const data = await res.json();
+      setData(Object.values(data))
+      dispatch({ type: "FETCH_DATA", data: Object.values(data) });
+    })();
+  }, []);
+
   return (
     <> 
       <Container>
-        <SearchInput type="search"/>
-        <SearchButton><FontAwesomeIcon icon={faSearch}/></SearchButton>
-      <GlobalStyle/>
-      <Table shipments={data} handleSort={handleSort} />
+        <GlobalStyle />
+        <Search data={state.data} setSearchedData={setSearchedData} />   
+        <Table
+          shipments={state.data}
+          handleSortId={handleSortId}
+          handleSortName={handleSortName} />
       </Container>
     </>
   );
